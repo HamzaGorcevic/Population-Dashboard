@@ -14,7 +14,7 @@ export default function SearchBar({ setCountry, setName, country }) {
         }}
         className="w-[20%]  bg-red-900 hover:bg-red-600"
       >
-        Search
+        <i class="fa-sharp fa-solid fa-people-simple"></i>
       </button>
     </div>
   );

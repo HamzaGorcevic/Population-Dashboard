@@ -3,27 +3,15 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import SearchBar from "../SearchCountry";
-
+import Cactus from "./SingleDashboard";
 export default function Langing() {
-  const [countries, setCountries] = useState([]);
-  const [points, setPoints] = useState(0);
-  const [show, setShow] = useState(false);
-  const [mapCounteries, setMapCounteries] = useState([]);
-
   const [country, setCountry] = useState("");
   const [name, setName] = useState("serbia");
+  const [population, setPopulation] = useState([]);
+  const [overall, setOverall] = useState(0);
 
   // https://countryflagsapi.com/png/ link za slike
-
-  function numFormatter(num) {
-    if (num > 999 && num < 1000000) {
-      return num / (1000).toFixed(1) + "K"; // convert to K for number from > 1000 < 1 million
-    } else if (num > 1000000) {
-      return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
-    } else if (num < 900) {
-      return num; // if value < 1000, nothing to do
-    }
-  }
+  let helper = 0;
   useEffect(() => {
     // axios
     //   .get("https://countriesnow.space/api/v0.1/countries/population", {
@@ -32,6 +20,7 @@ export default function Langing() {
     //   .then((response) => {
     //     console.log(response);
     //   });
+
     axios({
       method: "post",
       url: "https://countriesnow.space/api/v0.1/countries/population",
@@ -39,17 +28,23 @@ export default function Langing() {
         country: `${name}`,
       },
     }).then((response) => {
-      console.log(response);
+      setPopulation(response.data.data.populationCounts);
+      for (let i of response.data.data.populationCounts) {
+        helper += i.value;
+        setOverall(helper / 29);
+      }
     });
   }, [name]);
-  let population = 200;
-  console.log(name);
+  console.log("OVERALL this neam", overall);
   return (
     <>
       <SearchBar country={country} setCountry={setCountry} setName={setName} />
-      <div className="bg-yellow-500 h-screen flex justify-center items-center">
-        <div className="w-96 h-[200px] bg-black"> nes</div>
-        <div className={`bg-blue-400 w-96 h-[${population}px]`}>nelo</div>
+      <div className="bg-yellow-500 h-screen flex justify-center items-end">
+        <div className="bg-amber-600 flex  items-end min-h-[80%] min-w-[80%] rounded-2xl overflow-scroll">
+          {population.map((pop) => {
+            return <Cactus pop={pop} overall={overall} />;
+          })}
+        </div>
       </div>
     </>
   );
