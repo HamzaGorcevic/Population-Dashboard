@@ -45,7 +45,16 @@ export default function Langing() {
     <>
       <SearchBar country={country} setCountry={setCountry} setName={setName} />
       <div className="bg-yellow-500 h-screen flex justify-center items-end">
-        <div className="bg-amber-600 flex m-[25px]  items-end h-[500px] min-w-[80%] rounded-2xl overflow-scroll">
+        <div className="bg-amber-600 flex m  items-end h-[600px] w-[80vw] rounded-2xl overflow-x-auto relative">
+          {/* <div className="fixed w-[80%]  flex flex-col gap-y-[60px] h-[500px]">
+            <div className="h-[3px] w-[100%]  bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+            <div className="h-[3px] w-[100%] bg-black"></div>
+          </div> */}
           {population.map((pop) => {
             return <Cactus pop={pop} overall={overall} arr={arrForPop} />;
           })}

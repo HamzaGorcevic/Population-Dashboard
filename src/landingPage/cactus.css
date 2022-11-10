@@ -1,8 +1,6 @@
 .cactus-body {
-  margin-left: 50px;
   width: 50px;
   position: relative;
-  border-radius: 20px 20px 0 0;
 }
 
 .arm {
