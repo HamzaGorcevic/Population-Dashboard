@@ -14,15 +14,8 @@ export default function Langing() {
   // https://countryflagsapi.com/png/ link za slike
   let helper = 0;
   let arr = [];
-  useEffect(() => {
-    // axios
-    //   .get("https://countriesnow.space/api/v0.1/countries/population", {
-    //     params: { country: "nigeria" },
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
 
+  useEffect(() => {
     axios({
       method: "post",
       url: "https://countriesnow.space/api/v0.1/countries/population",
@@ -30,7 +23,11 @@ export default function Langing() {
         country: `${name}`,
       },
     }).then((response) => {
-      setPopulation(response.data.data.populationCounts);
+      console.log(response.data.data.populationCounts, "What is this");
+      let help = response.data.data.populationCounts;
+
+      setPopulation(help);
+
       for (let i of response.data.data.populationCounts) {
         arr.push(i.value);
 
@@ -40,20 +37,19 @@ export default function Langing() {
       setArrForPop(arr);
     });
   }, [name]);
-  console.log("OVERALL this neam", overall);
   return (
     <>
       <SearchBar country={country} setCountry={setCountry} setName={setName} />
       <div className="bg-yellow-500 h-screen flex justify-center items-end">
-        <div className="bg-amber-600 flex m  items-end h-[600px] w-[80vw] rounded-2xl overflow-x-auto relative">
-          <div className="fixed w-[80%]  flex flex-col gap-y-[60px] h-[500px]">
-            <div className="h-[3px] w-[100%]  bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
-            <div className="h-[3px] w-[100%] bg-black"></div>
+        <div className="bg-amber-600 flex items-end h-[600px] w-[80vw] rounded-2xl overflow-x-auto relative my-5">
+          <div className="w-[80%]  flex flex-col gap-y-[60px] h-full bg-green-200">
+            <div className="h-[1px] w-[100%]  bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
+            <div className="h-[1px] w-[100%] bg-black"></div>
           </div>
           {population.map((pop) => {
             return <Cactus pop={pop} overall={overall} arr={arrForPop} />;

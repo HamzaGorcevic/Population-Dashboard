@@ -11,24 +11,17 @@ export default function Cactus({ pop, overall, arr }) {
       return num; // if value < 1000, nothing to do
     }
   }
-  console.log(Math.max(...arr), Math.min(...arr));
   let min = Math.min(...arr);
   let max = Math.max(...arr);
 
   function formatPopulationForHeight(pop) {
-    if (
-      Math.max(...arr).toString().length > Math.min(...arr).toString().length
-    ) {
+    let popValue = pop;
+    while (popValue >= 1000) {
+      popValue /= 10;
     }
-    if (pop > 999 && pop < 100000) {
-      return { pop: pop / 100, color: "#178922c7" };
-    } else if (pop > 99999 && pop < 10000000) {
-      return { pop: pop / 10000, color: "#2f7637" };
-    } else if (pop > 9999999 && pop < 10000000000) {
-      return { pop: pop / 1000000, color: "#1f742a" };
-    }
+    return { pop: popValue, color: "#178922c7" };
   }
-  console.log(formatPopulationForHeight(max), "MAX");
+
   return (
     <div
       className="m-[90px]  flex flex-col items-center "
@@ -38,7 +31,7 @@ export default function Cactus({ pop, overall, arr }) {
     >
       {formatPopulationForHeight(pop.value).pop ===
       formatPopulationForHeight(max).pop ? (
-        <hr className="absolute left-0  w-[540%]" />
+        <hr className="" />
       ) : (
         ""
       )}
