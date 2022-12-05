@@ -16,17 +16,24 @@ export default function Cactus({ pop, overall, arr }) {
 
   function formatPopulationForHeight(pop) {
     let popValue = pop;
-    while (popValue >= 1000) {
+
+    while (popValue >= 1500) {
       popValue /= 10;
     }
     return { pop: popValue, color: "#178922c7" };
   }
-
+  console.log(parseInt(String(overall)[0]), String(Math.round(overall)).length);
+  console.log(formatPopulationForHeight(pop.value).pop / 2);
   return (
     <div
-      className="m-[90px]  flex flex-col items-center "
+      className="mx-[90px]  flex flex-col items-center "
       style={{
-        height: `${formatPopulationForHeight(pop.value).pop / 8 + 200}px`,
+        height: `${
+          parseInt(String(overall)[0]) <= 5 &&
+          String(Math.round(overall)).length < 10
+            ? formatPopulationForHeight(pop.value).pop / 2 + 300
+            : formatPopulationForHeight(pop.value).pop / 2
+        }px`,
       }}
     >
       {formatPopulationForHeight(pop.value).pop ===

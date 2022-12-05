@@ -41,3 +41,13 @@
   height: 70px;
   width: 20px;
 }
+
+.blendMode .blend {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  mix-blend-mode: screen;
+  object-fit: cover;
+}

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import SearchBar from "../SearchCountry";
 import Cactus from "./SingleDashboard";
+import World from ".//album/africa.jpg";
+import "./cactus.css";
 export default function Langing() {
   const [country, setCountry] = useState("");
   const [name, setName] = useState("serbia");
@@ -11,8 +13,8 @@ export default function Langing() {
   const [overall, setOverall] = useState(0);
   const [arrForPop, setArrForPop] = useState([]);
 
-  // https://countryflagsapi.com/png/ link za slike
-  let helper = 0;
+  // https://countryflagsapi.com/png/
+  let avg = 0;
   let arr = [];
 
   useEffect(() => {
@@ -23,39 +25,36 @@ export default function Langing() {
         country: `${name}`,
       },
     }).then((response) => {
-      console.log(response.data.data.populationCounts, "What is this");
       let help = response.data.data.populationCounts;
 
       setPopulation(help);
 
-      for (let i of response.data.data.populationCounts) {
+      for (let i = 0; i < response.data.data.populationCounts.length; i++) {
         arr.push(i.value);
 
-        helper += i.value;
-        setOverall(helper / 29);
+        avg += response.data.data.populationCounts[i].value;
+        setOverall(avg / i);
       }
       setArrForPop(arr);
     });
   }, [name]);
   return (
-    <>
+    <div className="bg-yellow-500 min-h-screen flex flex-col items-center justify-center">
       <SearchBar country={country} setCountry={setCountry} setName={setName} />
-      <div className="bg-yellow-500 h-screen flex justify-center items-end">
-        <div className="bg-amber-600 flex items-end h-[600px] w-[80vw] rounded-2xl overflow-x-auto relative my-5">
-          <div className="w-[80%]  flex flex-col gap-y-[60px] h-full bg-green-200">
-            <div className="h-[1px] w-[100%]  bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-            <div className="h-[1px] w-[100%] bg-black"></div>
-          </div>
-          {population.map((pop) => {
-            return <Cactus pop={pop} overall={overall} arr={arrForPop} />;
-          })}
-        </div>
+
+      <div className="h-[8rem] w-[8rem]  my-11 relative blendMode ">
+        <img className="blend" src={World} alt="" />
+        <img
+          className="blend"
+          src={`https://countryflagsapi.com/png/${name}`}
+          alt=""
+        />
       </div>
-    </>
+      <div className="bg-amber-600 flex items-end h-[46rem] w-[80vw] rounded-2xl overflow-x-auto ">
+        {population.map((pop) => {
+          return <Cactus pop={pop} overall={overall} arr={arrForPop} />;
+        })}
+      </div>
+    </div>
   );
 }
