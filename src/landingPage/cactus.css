@@ -42,12 +42,31 @@
   width: 20px;
 }
 
-.blendMode .blend {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  mix-blend-mode: screen;
-  object-fit: cover;
+.loader {
+  position: relative;
+  border-radius: 50%;
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  background-color: rgb(37, 34, 33);
+}
+
+.circle {
+  background: rgb(83, 84, 83);
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+}
+.inside {
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

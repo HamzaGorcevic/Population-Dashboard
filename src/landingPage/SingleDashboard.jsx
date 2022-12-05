@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./cactus.css";
 export default function Cactus({ pop, overall, arr }) {
+  const [hover, setHover] = useState(false);
+
   function numFormatter(num) {
     if (num > 999 && num < 1000000) {
       return num / (1000).toFixed(1); // convert to K for number from > 1000 < 1 million
@@ -22,8 +24,7 @@ export default function Cactus({ pop, overall, arr }) {
     }
     return { pop: popValue, color: "#178922c7" };
   }
-  console.log(parseInt(String(overall)[0]), String(Math.round(overall)).length);
-  console.log(formatPopulationForHeight(pop.value).pop / 2);
+
   return (
     <div
       className="mx-[90px]  flex flex-col items-center "
@@ -48,7 +49,14 @@ export default function Cactus({ pop, overall, arr }) {
           height: "100%",
         }}
         className="cactus-body"
+        onMouseOver={() => {
+          setHover(true);
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+        }}
       >
+        {hover ? <h1>{pop.value}</h1> : ""}
         <div
           style={{ background: formatPopulationForHeight(pop.value).color }}
           className="arm left"
